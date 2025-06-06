@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta de Cumpleaños Especial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+        
+        /* Estilos para la primera página */
+        body {
+            background-color: #ffebee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+            font-family: 'Patrick Hand', cursive;
+        }
+        
+        .carta {
+            background-color: #fff;
+            width: 80%;
+            max-width: 500px;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            border: 3px dashed #ff9e9e;
+        }
+        
+        .titulo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #000000;
+            margin: 10px 0;
+            text-shadow: 
+                2px 2px 0 #fff,
+                3px 3px 0 rgba(0,0,0,0.1);
+            line-height: 1.3;
+        }
+        
+        .subtitulo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff9bb5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+            text-shadow: 
+                2px 2px 0 #fff,
+                3px 3px 0 rgba(0,0,0,0.1);
+        }
+        
+        .emoticon {
+            font-size: 28px;
+            filter: drop-shadow(2px 2px 1px rgba(0,0,0,0.1));
+            color: #000000;
+        }
+        
+        .emoticon-gris {
+            font-size: 28px;
+            color: #888888;
+            filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.3));
+        }
+        
+        .boton {
+            background-color: #ff9e9e;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 22px;
+            margin: 20px 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+        }
+        
+        .boton:hover {
+            background-color: #ff6b81;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+        
+        .boton-musica {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #e91e63;
+            filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.2));
+            z-index: 100;
+        }
+        
+        .span-1 {
+            font-size: 24px;
+            color: #888888;
+            display: inline-block;
+            margin: 10px 0;
+            font-weight: bold;
+            text-shadow: 
+                1px 1px 0 #fff,
+                2px 2px 0 rgba(0,0,0,0.3);
+        }
+        
+        /* Estilos para la segunda página (oculta inicialmente) */
+        #mensajeEspecial {
+            display: none;
+            background-color: #fff0f5;
+            font-family: 'Patrick Hand', cursive;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+        }
+
+        .decoracion-inferior {
+            height: 60px;
+            background: linear-gradient(to bottom, #a0e7e5, #cdb4f5, #ffcad4);
+            border-top: 2px solid #eecff2;
+            box-shadow: inset 0 10px 15px rgba(0, 0, 0, 0.05);
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+
+        .mensaje-container {
+            background-color: white;
+            width: 100%;
+            max-width: 600px;
+            max-height: 80vh;
+            padding: 0;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 3px dashed #cdb4f5;
+            position: relative;
+            z-index: 10;
+            overflow-y: auto;
+        }
+        
+        .header-design {
+            height: 40px;
+            background: linear-gradient(to bottom, #fff0f5, white);
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .header-design::before,
+        .header-design::after {
+            content: "🎀";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: #a0e7e5;
+        }
+        
+        .header-design::before {
+            left: 20px;
+        }
+        
+        .header-design::after {
+            right: 20px;
+        }
+        
+        .content-wrapper {
+            padding: 0 40px 20px;
+        }
+        
+        .mensaje-container h1 {
+            color: #ff6b8b;
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 10px;
+            margin-top: 0;
+        }
+        
+        .mensaje-container h2 {
+            color: #ff6b8b;
+            font-size: 24px;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .mensaje-container h2::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #ffb3c6, transparent);
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .mensaje-container p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .footer-design {
+            height: 40px;
+            background: linear-gradient(to top, #fff0f5, white);
+            position: relative;
+            margin-top: 20px;
+        }
+        
+        .footer-design::before,
+        .footer-design::after {
+            content: "🎀";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: #ff6b8b;
+        }
+        
+        .footer-design::before {
+            left: 20px;
+        }
+        
+        .footer-design::after {
+            right: 20px;
+        }
+        
+        .mensaje-boton-musica {
+            position: absolute;
+            top: 20px;
+            right: 100px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #ff6b8b;
+            z-index: 100;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .heart {
+            position: absolute;
+            color: #ff6b8b;
+            font-size: 24px;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.8;
+            animation: float 8s linear infinite;
+            top: -50px;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(calc(100vh + 50px)) rotate(360deg) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        .imagen-sobre {
+            width: 250px;
+            height: 250px;
+            display: block;
+            margin: 0 auto 10px;
+        }
+
+        /* Estilos para el sobre intermedio */
+        .sobre-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sobre {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 20px;
+            border: 2px dashed #ff9e9e;
+            text-align: center;
+            font-family: 'Patrick Hand', cursive;
+        }
+        
+        .boton-sobre {
+            background-color: #ff9e9e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            font-family: 'Patrick Hand', cursive;
+        }
+        
+        /* Botón de corazón para volver al inicio */
+        .corazon-regreso {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #ff6b8b;
+            z-index: 100;
+            animation: latido 1.5s infinite;
+            transform-origin: center;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        @keyframes latido {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .corazon-regreso:hover {
+            animation: latido 0.8s infinite;
+            color: #e91e63;
+        }
+    </style>
+</head>
+<body>
+    <!-- Primera página -->
+    <div class="carta">
+        <button class="boton-musica" id="botonMusica">♪</button>
+        <div class="titulo">Happy Birthday</div>
+        <div class="subtitulo">
+            ¡Mi hediondilla!<span class="emoticon">(｡◕‿◕｡)</span>
+        </div>
+        <h1>
+            <span class="span-1">Cartita<span class="emoticon-gris"> (つ◕v◕)つ♡</span>
+            </span><br />
+        </h1>
+        <button class="boton" id="abrirBtn">Leer</button>
+    </div>
+    
+    <!-- Sobre intermedio -->
+    <div class="sobre-container" id="sobreContainer">
+        <div class="sobre">
+            <!-- Espacio para tu imagen -->
+            <img src="Happy.gif" alt="Imagen del sobre" class="imagen-sobre">
+            
+            <p>¿Quieres abrirla? (つ◕v◕)つ♡</p>
+            
+            <div>
+                <button class="boton-sobre" id="siQuieroBtn">Sí, quiero</button>
+                <button class="boton-sobre" id="noQuieroBtn">No, quiero</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Segunda página (mensaje especial) -->
+    <div id="mensajeEspecial">
+        <button class="mensaje-boton-musica" id="mensajeBotonMusica">♪</button>
+        <button class="corazon-regreso" id="corazonRegreso">❤️</button>
+
+        <div class="decoracion-inferior"></div>
+        
+        <div class="mensaje-container">
+            <div class="header-design"></div>
+            
+            <div class="content-wrapper">
+                <img src="riri.gif" alt="Imagen del sobre" class="imagen-sobre">
+                <h1>(つ◕v◕)つ♡</h1>
+                
+                <h2>Feliz Cumpleaños, Mi muerde tobillos piciosa</h2>
+                
+                <p>Hoy 9 de Junio, quiero felicitarte mi amor porque estás cumpliendo otro año en tu vida, ¡30 años!, y en este día especial, solo quiero que sepas que eres una maravillosa mujer la cual hace mis días tan felices.❤ </p>
+                <p>Quiero expresarte cuánto significas para mí. Me alegro de haberte conocido y me siento feliz de que estés presente en mi vida, tu amor, cariño, apoyo y compañía han llenado mi vida de alegría y felicidad. Mi muerde tobillos, créeme que en este 
+                    momento quisiera poder verte frente a frente y ver tu linda carita, te deseo lo mejor de lo mejor, quisiera darte unos besitos en esa carita preciosa, unos abrazos muy, muy fuertes y también decirte que eres una persona increíble y que me siento muy feliz por ti.</p>
+                
+                <p>Eres la persona en que puedo confiar y sentirme seguro estando a tu lado. Cada momento a tu lado es un regalo, y estoy agradecido por cada risa compartida, cada abrazo y cada mirada cómplice.❤</p>
+                
+                <p>Por cierto, ¿si te bañaste hoy?😜, esperó que te la pases de lo mejor hoy, que se cumplan todos tus sueños y metas que tengas mi vida, que la vida te sorprenda con momentos inolvidables y espero estar presente para verlos.🥰</p>
+                <p>Feliz Cumpleaños mi vida, que este tu día este lleno de risas, abrazos y mucho amor. Recuerda que TE QUIERO MUCHÍSIMO Ximena.🥰</p>
+                <p>Con amor, tu negrito piel canela. 😘</p>
+            </div>
+            
+            <div class="footer-design"></div>
+        </div>
+    </div>
+    
+    <audio id="musicaFondo" loop>
+        <source src="Angel.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Elementos del DOM
+        const botonMusica = document.getElementById('botonMusica');
+        const musicaFondo = document.getElementById('musicaFondo');
+        const abrirBtn = document.getElementById('abrirBtn');
+        const sobreContainer = document.getElementById('sobreContainer');
+        const siQuieroBtn = document.getElementById('siQuieroBtn');
+        const noQuieroBtn = document.getElementById('noQuieroBtn');
+        const mensajeEspecial = document.getElementById('mensajeEspecial');
+        const mensajeBotonMusica = document.getElementById('mensajeBotonMusica');
+        const corazonRegreso = document.getElementById('corazonRegreso');
+        
+        let musicaActiva = false;
+        
+        // Iniciar música con primer click
+        document.body.addEventListener('click', function iniciarMusica() {
+            if(!musicaActiva) {
+                musicaFondo.play().catch(e => console.log("No se pudo reproducir automáticamente:", e));
+                musicaActiva = true;
+            }
+            document.body.removeEventListener('click', iniciarMusica);
+        });
+        
+        // Control mute/unmute en la primera página
+        botonMusica.addEventListener('click', function() {
+            if(musicaFondo.paused) {
+                musicaFondo.play();
+                botonMusica.textContent = '♪';
+                botonMusica.style.color = '#e91e63';
+            } else {
+                musicaFondo.pause();
+                botonMusica.textContent = '🔇';
+                botonMusica.style.color = '#ff9e9e';
+            }
+        });
+        
+        // Control mute/unmute en el mensaje especial
+        mensajeBotonMusica.addEventListener('click', function() {
+            if(musicaFondo.paused) {
+                musicaFondo.play();
+                mensajeBotonMusica.textContent = '♪';
+                mensajeBotonMusica.style.color = '#e91e63';
+            } else {
+                musicaFondo.pause();
+                mensajeBotonMusica.textContent = '🔇';
+                mensajeBotonMusica.style.color = '#ff9e9e';
+            }
+        });
+        
+        // Mostrar el sobre intermedio al hacer clic en "Leer"
+        abrirBtn.addEventListener('click', function() {
+            sobreContainer.style.display = 'flex';
+        });
+        
+        // Mostrar el mensaje especial al hacer clic en "Sí, quiero"
+        siQuieroBtn.addEventListener('click', function() {
+            sobreContainer.style.display = 'none';
+            mensajeEspecial.style.display = 'flex';
+            crearCorazones();
+        });
+        
+        // Ocultar el sobre y redirigir al hacer clic en "No, quiero"
+        noQuieroBtn.addEventListener('click', function() {
+            sobreContainer.style.display = 'none';
+            window.location.href = "https://www.youtube.com/watch?v=hPr-Yc92qaY";
+        });
+        
+        // Volver al inicio al hacer clic en el corazón
+        corazonRegreso.addEventListener('click', function() {
+            mensajeEspecial.style.display = 'none';
+        });
+        
+        // Crear corazones cayendo lentamente
+        function crearCorazones() {
+            const numCorazones = 15;
+            const colors = ['#ff6b8b', '#ff8fab', '#ffb3c6', '#ffcad4'];
+            
+            for (let i = 0; i < numCorazones; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('i');
+                    heart.className = 'heart fas fa-heart';
+                    
+                    // Posición inicial aleatoria
+                    const startPosX = Math.random() * window.innerWidth;
+                    
+                    // Tamaño aleatorio
+                    const size = 0.5 + Math.random() * 1.5;
+                    
+                    // Color aleatorio
+                    const color = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    // Duración aleatoria
+                    const duration = 8 + Math.random() * 7;
+                    
+                    // Establecer propiedades
+                    heart.style.left = `${startPosX}px`;
+                    heart.style.color = color;
+                    heart.style.fontSize = `${size}em`;
+                    heart.style.animationDuration = `${duration}s`;
+                    
+                    document.getElementById('mensajeEspecial').appendChild(heart);
+                    
+                    // Eliminar corazón después de animación
+                    setTimeout(() => {
+                        heart.remove();
+                    }, duration * 1000);
+                    
+                }, i * 500); // Retraso escalonado
+            }
+            
+            // Repetir la creación de corazones
+            setTimeout(crearCorazones, 3000);
+        }
+    </script>
+</body>
+</html>
